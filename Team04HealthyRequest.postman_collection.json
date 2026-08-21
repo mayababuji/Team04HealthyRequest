@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "5f8e893c-8d80-4067-a3ab-b9afd4eea716",
+    "_postman_id": "5be2ecea-2f56-4db3-b466-4daa94f81cb7",
     "name": "Team04HealthyRequest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "45517037"
@@ -109,8 +109,8 @@
                   "const response = pm.response.json();",
                   "console.log(\"The response of create dietician is   \",response);",
                   "",
-                  "// Extract the dietician ID",
-                  "const dieticianId = response.id;",
+                  "// // Extract the dietician ID",
+                  " const dieticianId = response.id;",
                   "",
                   "// Set it as a collection variable",
                   "pm.collectionVariables.set(\"dieticianID\", dieticianId);",
@@ -124,11 +124,12 @@
                   "// Set it as a collection variable",
                   "pm.collectionVariables.set(\"dieticianEmailId\", dieticianEmailId);",
                   "",
-                  "// Optional: log it for debug",
+                  "",
                   "console.log(\"Dietician EMAIL ID saved in collection variable: \" + dieticianEmailId);",
                   "",
                   "// Extract the emailID password of dietician ",
-                  "let dieticianPassword = \"test\";",
+                  "//let dieticianPassword = \"test\";",
+                  "let dieticianPassword = pm.iterationData.get(\"password\");",
                   "",
                   "// Set it as a collection variable",
                   "pm.collectionVariables.set(\"dieticianPassword\", dieticianPassword);",
@@ -475,6 +476,168 @@
     {
       "name": "Morbidity",
       "item": []
+    },
+    {
+      "name": "CleanUp",
+      "item": [
+        {
+          "name": "Delete Patient",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const isLastIteration =",
+                  "    pm.info.iteration === pm.info.iterationCount - 1;",
+                  "",
+                  "console.log(\"Cleanup request:\", pm.info.requestName);",
+                  "console.log(\"Current iteration:\", pm.info.iteration + 1);",
+                  "console.log(\"Total iterations:\", pm.info.iterationCount);",
+                  "console.log(\"Is last iteration:\", isLastIteration);",
+                  "",
+                  "if (!isLastIteration) {",
+                  "    console.log(\"Skipping cleanup until the final iteration.\");",
+                  "    pm.execution.skipRequest();",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Patient deletion should succeed\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+                  "});",
+                  "",
+                  "console.log(\"Delete Patient status:\", pm.response.code);",
+                  "console.log(\"Delete Patient response:\", pm.response.text());"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{dieticianToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "patientInfo",
+                  "type": "text",
+                  "uuid": "5193415f-6ef6-4316-8cc5-dcd52afd784a",
+                  "value": "{   \"FirstName\": \"JohnsecondOfThrid\",   \"LastName\": \"Doesecond\",   \"ContactNumber\": \"5551134547\",   \"Email\": \"john.doesecondofThrid@example.com\",   \"Allergy\": \"ALMOND\",   \"FoodPreference\": \"Vegetarian\",   \"CuisineCategory\": \"Indian\",   \"DateOfBirth\": \"1986-09-14\" }"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5678/dietician/patient/{{patientId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5678",
+              "path": [
+                "dietician",
+                "patient",
+                "{{patientId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delet Dietician",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const isLastIteration =",
+                  "    pm.info.iteration === pm.info.iterationCount - 1;",
+                  "",
+                  "console.log(\"Cleanup request:\", pm.info.requestName);",
+                  "console.log(\"Current iteration:\", pm.info.iteration + 1);",
+                  "console.log(\"Total iterations:\", pm.info.iterationCount);",
+                  "console.log(\"Is last iteration:\", isLastIteration);",
+                  "",
+                  "if (!isLastIteration) {",
+                  "    console.log(\"Skipping cleanup until the final iteration.\");",
+                  "    pm.execution.skipRequest();",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Dietician deletion should succeed\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+                  "});",
+                  "",
+                  "console.log(\"Delete Dietician status:\", pm.response.code);",
+                  "console.log(\"Delete Dietician response:\", pm.response.text());"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ContactNumber\": \"4457959995\",\n  \"DateOfBirth\": \"2024-07-26\",\n  \"Education\": \"mayadoctordietsecond\",\n  \"Email\": \"mayasecond@diet.com\",\n  \"Firstname\": \"mayadieticiansecond\",\n  \"HospitalCity\": \"mayacitysecond\",\n  \"HospitalName\": \"mayadeitHospiatasecond\",\n  \"HospitalPincode\": \"287931\",\n  \"HospitalStreet\": \"mayastreetsecond\",\n  \"Lastname\": \"mayalastnamedietsecond\"\n \n}\n"
+            },
+            "url": {
+              "raw": "http://localhost:5678/dietician/dietician/{{dieticianID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5678",
+              "path": [
+                "dietician",
+                "dietician",
+                "{{dieticianID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

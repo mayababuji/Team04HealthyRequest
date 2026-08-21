@@ -1,4 +1,4 @@
 ﻿requestType,userLoginEmail,password,scenario,Firstname,Lastname,ContactNumber,DateOfBirth,Email,HospitalName,HospitalStreet,HospitalCity,HospitalPincode,Education,Allergy,FoodPreference,CuisineCategory,Weight,Height,Temperature,SP,DP
 createAdmin,augHackathon@gmail.com,test,Valid Login,,,,,,,,,,,,,,,,,,
-createDietician,,,,teamfourfirstname,teamfourlastname,6282539192,1993-07-23,teamfour2003@aollzw.com,teamfourhospital,33street,bangalore,991291,Medicine,,,,,,,,
+createDietician,,test,,teamfourfirstname,teamfourlastname,6282539192,1993-07-23,teamfour2003@aollzw.com,teamfourhospital,33street,bangalore,991291,Medicine,,,,,,,,
 createPatient,,,,teamfourpatientfirstname,teamfourpatientlastname,8229281199,1969-06-01,teamfourpatient2013@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
