@@ -1,0 +1,480 @@
+{
+  "info": {
+    "_postman_id": "5f8e893c-8d80-4067-a3ab-b9afd4eea716",
+    "name": "Team04HealthyRequest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45517037"
+  },
+  "item": [
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Admin Login",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");",
+                  "console.log(\"Running scenario:\", pm.iterationData.get(\"scenario\"));",
+                  "console.log(\"The request type in POST Admin Login is \"+ requestType)",
+                  "if (requestType!=\"createAdmin\"){",
+                  "    pm.execution.skipRequest();",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "console.log(\"Running scenario:\", pm.iterationData.get(\"scenario\"));",
+                  "const scenario = pm.iterationData.get(\"scenario\");",
+                  "if (scenario === \"Valid Login\") {",
+                  "    const admin_token = response.token;",
+                  "    pm.environment.set(\"admin_token\", admin_token);",
+                  "    console.log(\"The admin token is set to:\", admin_token);",
+                  "    pm.test(\"Login should succeed\", function () {",
+                  "        pm.response.to.have.status(200);",
+                  "        pm.expect(pm.response.json()).to.have.property(\"token\");",
+                  "    });",
+                  "} ",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userLoginEmail\": \"{{userLoginEmail}}\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/login",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dietician",
+      "item": [
+        {
+          "name": "create dietician",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");",
+                  "console.log(\"The request type in create dietician is \"+ requestType)",
+                  "if (requestType!=\"createDietician\"){",
+                  "    pm.execution.skipRequest();",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Parse the JSON response",
+                  "const response = pm.response.json();",
+                  "console.log(\"The response of create dietician is   \",response);",
+                  "",
+                  "// Extract the dietician ID",
+                  "const dieticianId = response.id;",
+                  "",
+                  "// Set it as a collection variable",
+                  "pm.collectionVariables.set(\"dieticianID\", dieticianId);",
+                  "",
+                  "",
+                  "console.log(\"Dietician ID saved in collection variable: \" + dieticianId);",
+                  "",
+                  "// Extract the emailID of dietician ",
+                  "let dieticianEmailId = response.Email;",
+                  "",
+                  "// Set it as a collection variable",
+                  "pm.collectionVariables.set(\"dieticianEmailId\", dieticianEmailId);",
+                  "",
+                  "// Optional: log it for debug",
+                  "console.log(\"Dietician EMAIL ID saved in collection variable: \" + dieticianEmailId);",
+                  "",
+                  "// Extract the emailID password of dietician ",
+                  "let dieticianPassword = \"test\";",
+                  "",
+                  "// Set it as a collection variable",
+                  "pm.collectionVariables.set(\"dieticianPassword\", dieticianPassword);",
+                  "",
+                  "// Optional: log it for debug",
+                  "console.log(\"Dietician EMAIL password saved in collection variable: \" + dieticianPassword);",
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Firstname\": \"{{Firstname}}\",\n  \"Lastname\": \"{{Lastname}}\",\n  \"ContactNumber\": \"{{ContactNumber}}\",\n  \"DateOfBirth\": \"{{DateOfBirth}}\",\n  \"Email\": \"{{Email}}\",\n  \"HospitalName\": \"{{HospitalName}}\",\n  \"HospitalStreet\": \"{{HospitalStreet}}\",\n  \"HospitalCity\": \"{{HospitalCity}}\",\n  \"HospitalPincode\": \"{{HospitalPincode}}\",\n  \"Education\": \"{{Education}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/dietician",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "dietician"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "item": [
+        {
+          "name": "LoginDietician",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "",
+                  "const requestType = pm.iterationData.get(\"requestType\");",
+                  "console.log(\"The request type in DIETICIAN login is \"+ requestType)",
+                  "",
+                  "if (requestType!=\"createPatient\"){",
+                  "    pm.execution.skipRequest();",
+                  "}",
+                  "",
+                  "console.log(\"Dietician Email ID for login: \" + pm.collectionVariables.get(\"dieticianEmailId\"));",
+                  "console.log(\"Dietician Password for login: \" + pm.collectionVariables.get(\"dieticianPassword\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Parse the JSON response",
+                  "let response = pm.response.json();",
+                  "",
+                  "// Extract the token",
+                  "let dieticianToken = response.token;",
+                  "console.log(\"the deitician loging token is for login dietician is: \" + dieticianToken);",
+                  "// Set it as a collection variable",
+                  "pm.collectionVariables.set(\"dieticianToken\", dieticianToken);",
+                  "",
+                  "// Log it for debug",
+                  "console.log(\"dieticianToken token saved in collection variable: \" + dieticianToken);",
+                  "",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userLoginEmail\": \"{{dieticianEmailId}}\",\n  \"password\": \"{{dieticianPassword}}\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/login",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create new Patient",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");",
+                  "console.log(\"The request type in CREATE PATIENT  is \"+ requestType)",
+                  "if (requestType !== \"createPatient\") {",
+                  "    console.log(\"Skipping this iteration as requestType is not createPatient\");",
+                  "    ",
+                  "     pm.execution.skipRequest();",
+                  "} else {",
+                  "    // Build patientInfo JSON dynamically",
+                  "    let patientInfo = {",
+                  "        \"FirstName\": pm.iterationData.get(\"Firstname\"),",
+                  "        \"LastName\": pm.iterationData.get(\"Lastname\"),",
+                  "        \"ContactNumber\": pm.iterationData.get(\"ContactNumber\"),",
+                  "        \"Email\": pm.iterationData.get(\"Email\"),",
+                  "        \"Allergy\": pm.iterationData.get(\"Allergy\"),",
+                  "        \"FoodPreference\": pm.iterationData.get(\"FoodPreference\"),",
+                  "        \"CuisineCategory\": pm.iterationData.get(\"CuisineCategory\"),",
+                  "        \"DateOfBirth\": pm.iterationData.get(\"DateOfBirth\")",
+                  "    };",
+                  "    console.log(\"patientinfo is \"+patientInfo)",
+                  "    pm.collectionVariables.set(\"patientInfo\", JSON.stringify(patientInfo));",
+                  "    let vitals = {",
+                  "        \"Weight\": pm.iterationData.get(\"Weight\"),",
+                  "        \"Height\": pm.iterationData.get(\"Height\"),",
+                  "        \"Temperature\": pm.iterationData.get(\"Temperature\"),",
+                  "        \"SP\": pm.iterationData.get(\"SP\"),",
+                  "        \"DP\": pm.iterationData.get(\"DP\")",
+                  "    };",
+                  "    console.log(\"vitals is \" + vitals)",
+                  "    pm.collectionVariables.set(\"vitals\", JSON.stringify(vitals));",
+                  "}",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Create Patient returns 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "",
+                  "    console.log(\"Patient response:\", JSON.stringify(response, null, 2));",
+                  "",
+                  "    // Validate and save patient ID",
+                  "    pm.test(\"Patient ID is returned\", function () {",
+                  "        pm.expect(response.patientId).to.exist;",
+                  "    });",
+                  "",
+                  "    pm.collectionVariables.set(\"patientId\", String(response.patientId));",
+                  "",
+                  "    // Validate core patient fields",
+                  "    pm.test(\"Patient details are returned\", function () {",
+                  "        pm.expect(response).to.have.property(\"FirstName\");",
+                  "        pm.expect(response).to.have.property(\"LastName\");",
+                  "        pm.expect(response).to.have.property(\"Email\");",
+                  "        pm.expect(response).to.have.property(\"DieticianId\");",
+                  "        pm.expect(response).to.have.property(\"Vitals\");",
+                  "    });",
+                  "",
+                  "    // Compare returned patient data with CSV iteration data",
+                  "    pm.test(\"Patient first name matches test data\", function () {",
+                  "        pm.expect(response.FirstName).to.eql(",
+                  "            pm.iterationData.get(\"Firstname\")",
+                  "        );",
+                  "    });",
+                  "",
+                  "    pm.test(\"Patient last name matches test data\", function () {",
+                  "        pm.expect(response.LastName).to.eql(",
+                  "            pm.iterationData.get(\"Lastname\")",
+                  "        );",
+                  "    });",
+                  "",
+                  "    pm.test(\"Patient email matches test data\", function () {",
+                  "        pm.expect(response.Email).to.eql(",
+                  "            pm.iterationData.get(\"Email\")",
+                  "        );",
+                  "    });",
+                  "",
+                  "    // Vitals is an object with a generated/dynamic ID as its key",
+                  "    const vitalsObject = response.Vitals;",
+                  "",
+                  "    pm.test(\"Vitals are returned\", function () {",
+                  "        pm.expect(vitalsObject).to.be.an(\"object\");",
+                  "        pm.expect(vitalsObject).to.not.be.empty;",
+                  "    });",
+                  "",
+                  "    const vitalIds = Object.keys(vitalsObject);",
+                  "    const firstVitalId = vitalIds[0];",
+                  "    const vital = vitalsObject[firstVitalId];",
+                  "",
+                  "",
+                  "    console.log(\"Patient ID:\", response.patientId);",
+                  "    console.log(\"Vital record ID:\", firstVitalId);",
+                  "    console.log(\"Vital values:\", JSON.stringify(vital, null, 2));",
+                  "",
+                  "    // Validate returned vitals",
+                  "    pm.test(\"Vital measurements are returned\", function () {",
+                  "        pm.expect(vital).to.have.property(\"Weight\");",
+                  "        pm.expect(vital).to.have.property(\"Height\");",
+                  "        pm.expect(vital).to.have.property(\"Temperature\");",
+                  "        pm.expect(vital).to.have.property(\"SP\");",
+                  "        pm.expect(vital).to.have.property(\"DP\");",
+                  "    });",
+                  "",
+                  "    // Compare values after converting CSV strings to numbers",
+                  "    pm.test(\"Weight matches test data\", function () {",
+                  "        pm.expect(vital.Weight).to.eql(",
+                  "            Number(pm.iterationData.get(\"Weight\"))",
+                  "        );",
+                  "    });",
+                  "",
+                  "    pm.test(\"Height matches test data\", function () {",
+                  "        pm.expect(vital.Height).to.eql(",
+                  "            Number(pm.iterationData.get(\"Height\"))",
+                  "        );",
+                  "    });",
+                  "",
+                  "    pm.test(\"Temperature matches test data\", function () {",
+                  "        pm.expect(vital.Temperature).to.eql(",
+                  "            Number(pm.iterationData.get(\"Temperature\"))",
+                  "        );",
+                  "    });",
+                  "",
+                  "    pm.test(\"Systolic pressure matches test data\", function () {",
+                  "        pm.expect(vital.SP).to.eql(",
+                  "            Number(pm.iterationData.get(\"SP\"))",
+                  "        );",
+                  "    });",
+                  "",
+                  "    pm.test(\"Diastolic pressure matches test data\", function () {",
+                  "        pm.expect(vital.DP).to.eql(",
+                  "            Number(pm.iterationData.get(\"DP\"))",
+                  "        );",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{dieticianToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "patientInfo",
+                  "value": "{{patientInfo}}",
+                  "type": "text",
+                  "uuid": "152c7342-e7eb-4935-ab69-6817d38d926f"
+                },
+                {
+                  "key": "vitals",
+                  "value": "{{vitals}}",
+                  "type": "text",
+                  "uuid": "9facaaa7-f377-4d94-8fdf-aa566f15bfc7"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/patient",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "patient"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Morbidity",
+      "item": []
+    }
+  ]
+}
