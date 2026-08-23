@@ -5,3 +5,8 @@ createPatient,,,Valid Patient,teamfourpatientfirstname,teamfourpatientlastname,8
 createPatient,,,Blank patient first name,,teamfourpatientlastname,8229281111,1969-01-11,teamfourpatient2000@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
 createPatient,,,Blank patient last name,teamfourpatientfirstname,,8229281122,1969-01-01,teamfourpatient2001@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
 createPatient,,,Blank contact number,teamfourpatientfirstname,teamfourpatientlastname,,1969-01-01,teamfourpatient2002@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
+createAdmin,aughack,test,invalid login with incorrect username,,,,,,,,,,,,,,,,,,,,,
+createAdmin,,test,invalid login with empty username,,,,,,,,,,,,,,,,,,,,,
+createAdmin,augHackathon@gmail.com,,invalid login with incorrect password,,,,,,,,,,,,,,,,,,,,,,
+createAdmin, , ,invalid login with empty UN and password,,,,,,,,,,,,,,
+
