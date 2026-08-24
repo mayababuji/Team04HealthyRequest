@@ -28,3 +28,7 @@ getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,T3
 getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,Blood Pressure Levels
 getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,HELLO
 getMorbidityByTestNameWithInvalidToken,,,,,,,,,,,,,,,,,,,,,,
+createAdmin,aughack,test,invalid login with incorrect username,,,,,,,,,,,,,,,,,,,,,
+createAdmin,,test,invalid login with empty username,,,,,,,,,,,,,,,,,,,,,
+createAdmin,augHackathon@gmail.com,,invalid login with incorrect password,,,,,,,,,,,,,,,,,,,,,,
+createAdmin, , ,invalid login with empty UN and password,,,,,,,,,,,,,,
