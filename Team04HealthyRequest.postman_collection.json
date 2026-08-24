@@ -4440,50 +4440,51 @@
     },
     {
       "name": "Admin_LogOut",
-      "item": []
-    },
-    {
-      "name": "Admin Logout",
-      "event": [
+      "item": [
         {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Logout successful\", function () {\r",
-              "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
-              "});"
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
+          "name": "Admin Logout",
+          "event": [
             {
-              "key": "token",
-              "value": "{{admin_token}}",
-              "type": "string"
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Logout successful\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{dieticianbaseBaseUrl}}/dietician/logoutdietician",
-          "host": [
-            "{{dieticianbaseBaseUrl}}"
           ],
-          "path": [
-            "dietician",
-            "logoutdietician"
-          ]
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/logoutdietician",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "logoutdietician"
+              ]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     }
   ]
 }
