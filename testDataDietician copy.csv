@@ -1,12 +1,34 @@
-﻿requestType,userLoginEmail,password,scenario,Firstname,Lastname,ContactNumber,DateOfBirth,Email,HospitalName,HospitalStreet,HospitalCity,HospitalPincode,Education,Allergy,FoodPreference,CuisineCategory,Weight,Height,Temperature,SP,DP
-createAdmin,augHackathon@gmail.com,test,Valid Login,,,,,,,,,,,,,,,,,,
-createDietician,,test,,teamfourfirstname,teamfourlastname,6282539192,1993-07-23,teamfour2003@aollzw.com,teamfourhospital,33street,bangalore,991291,Medicine,,,,,,,,
-createPatient,,,Valid Patient,teamfourpatientfirstname,teamfourpatientlastname,8229281199,1969-06-01,teamfourpatient2013@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
-createPatient,,,Blank patient first name,,teamfourpatientlastname,8229281111,1969-01-11,teamfourpatient2000@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
-createPatient,,,Blank patient last name,teamfourpatientfirstname,,8229281122,1969-01-01,teamfourpatient2001@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
-createPatient,,,Blank contact number,teamfourpatientfirstname,teamfourpatientlastname,,1969-01-01,teamfourpatient2002@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60
+﻿requestType,userLoginEmail,password,scenario,Firstname,Lastname,ContactNumber,DateOfBirth,Email,HospitalName,HospitalStreet,HospitalCity,HospitalPincode,Education,Allergy,FoodPreference,CuisineCategory,Weight,Height,Temperature,SP,DP,morbidityTestName
+createAdmin,augHackathon@gmail.com,test,Valid Login,,,,,,,,,,,,,,,,,,,
+createDietician,,test,,teamfourfirstname,teamfourlastname,6282539192,1993-07-23,teamfour2003@aollzw.com,teamfourhospital,33street,bangalore,991291,Medicine,,,,,,,,,
+createPatient,,,Valid Patient1,teamfourpatientfirstname,teamfourpatientlastname,8229281199,1968-07-23,teamfourpatient2013@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60,
+createPatient,,,Blank patient first name,,teamfourpatientlastname,8229281111,1967-07-23,teamfourpatient2000@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60,
+createPatient,,,Blank patient last name,teamfourpatientfirstname,,8229281122,1988-07-23,teamfourpatient2001@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60,
+createPatient,,,Invalid Email,teamfourpatientfirstname,teamfourpatientlastname,8229281190,1969-01-01,teamfourpatient20aollzw.com,,,,,,,,,,,,,,
+createPatient,,,Blank contact number,teamfourpatientfirstname,teamfourpatientlastname,,1993-07-11,teamfourpatient2002@aollzw.com,,,,,,PEANUT,Vegetarian,Indian,65.5,5.4,24,90,60,
+getAllMorbiditiesByAdminToken,,,,,,,,,,,,,,,,,,,,,,
+getAllMorbiditiesByDieticianToken,,,,,,,,,,,,,,,,,,,,,,
+getAllMorbiditiesByInvalidToken,,,,,,,,,,,,,,,,,,,,,,
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,Fasting Glucose
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,Average Glucose
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,Plasma Glucose
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,HbA1c
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,TSH
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,T4
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,T3
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,Blood Pressure Levels
+getMorbidityByTestNameWithAdminToken,,,,,,,,,,,,,,,,,,,,,,JUNKIE
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,Fasting Glucose
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,Average Glucose
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,Plasma Glucose
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,HbA1c
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,TSH
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,T4
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,T3
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,Blood Pressure Levels
+getMorbidityByTestNameWithDieticianToken,,,,,,,,,,,,,,,,,,,,,,HELLO
+getMorbidityByTestNameWithInvalidToken,,,,,,,,,,,,,,,,,,,,,,
 createAdmin,aughack,test,invalid login with incorrect username,,,,,,,,,,,,,,,,,,,,,
 createAdmin,,test,invalid login with empty username,,,,,,,,,,,,,,,,,,,,,
 createAdmin,augHackathon@gmail.com,,invalid login with incorrect password,,,,,,,,,,,,,,,,,,,,,,
 createAdmin, , ,invalid login with empty UN and password,,,,,,,,,,,,,,
-
