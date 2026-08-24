@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "5be2ecea-2f56-4db3-b466-4daa94f81cb7",
+    "_postman_id": "79179dad-0f3d-4607-980f-1adb4c9d01e4",
     "name": "Team04HealthyRequest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "45517037"
+    "_exporter_id": "57080143",
+    "_collection_link": "https://go.postman.co/collection/57080143-79179dad-0f3d-4607-980f-1adb4c9d01e4?source=collection_link"
   },
   "item": [
     {
@@ -108,6 +109,30 @@
                   "// Parse the JSON response",
                   "const response = pm.response.json();",
                   "console.log(\"The response of create dietician is   \",response);",
+                  "",
+                  "console.log(\"Scenario:\", pm.iterationData.get(\"scenario\"));",
+                  "",
+                  "console.log(\"Request type:\", pm.iterationData.get(\"requestType\"));",
+                  "",
+                  "console.log(\"Firstname:\", pm.iterationData.get(\"Firstname\"));",
+                  "",
+                  "console.log(\"Lastname:\", pm.iterationData.get(\"Lastname\"));",
+                  "",
+                  "console.log(\"ContactNumber:\", pm.iterationData.get(\"ContactNumber\"));",
+                  "",
+                  "console.log(\"DateOfBirth:\", pm.iterationData.get(\"DateOfBirth\"));",
+                  "",
+                  "console.log(\"Email:\", pm.iterationData.get(\"Email\"));",
+                  "",
+                  "console.log(\"HospitalName:\", pm.iterationData.get(\"HospitalName\"));",
+                  "",
+                  "console.log(\"HospitalStreet:\", pm.iterationData.get(\"HospitalStreet\"));",
+                  "",
+                  "console.log(\"HospitalCity:\", pm.iterationData.get(\"HospitalCity\"));",
+                  "",
+                  "console.log(\"HospitalPincode:\", pm.iterationData.get(\"HospitalPincode\"));",
+                  "",
+                  "console.log(\"Education:\", pm.iterationData.get(\"Education\"));",
                   "",
                   "// // Extract the dietician ID",
                   " const dieticianId = response.id;",
@@ -870,7 +895,505 @@
     },
     {
       "name": "Morbidity",
-      "item": []
+      "item": [
+        {
+          "name": "GetAllMorbiditiesByAdminToken",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");\r",
+                  "const admintoken = pm.environment.get(\"admin_token\");\r",
+                  "console.log(\"The request type in MorbidityName is \" + requestType);\r",
+                  "console.log(\"AdminToken:\", admintoken);\r",
+                  "\r",
+                  "if (requestType!=\"getAllMorbiditiesByAdminToken\") {\r",
+                  "    console.log(\"Skipping Morbidity request - GetAllMorbiditiesByAdminToken\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  "\r",
+                  "else if (!admintoken) {\r",
+                  "    console.log(\"Skipping as admin_token is missing\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "console.log(response);\r",
+                  "pm.test(\"Get All Morbidity request is successful\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Morbidity has expected Response body\", function () {\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityId\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityTestId\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityTestName\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityTestUnit\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityMarkerMinVal\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityMarkerMaxVal\");\r",
+                  "    });\r",
+                  "});   \r",
+                  "\r",
+                  "pm.test(\"Morbidity response matches expected schema\", function () {\r",
+                  "    pm.expect(response).to.be.an(\"array\");\r",
+                  "\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "        pm.expect(morbidity).to.be.an(\"object\");\r",
+                  "\r",
+                  "        pm.expect(morbidity.morbidityId).to.be.a(\"number\");\r",
+                  "        pm.expect(morbidity.morbidityTestId).to.be.a(\"string\");\r",
+                  "        pm.expect(morbidity.morbidityTestName).to.be.a(\"string\");\r",
+                  "        pm.expect(morbidity.morbidityTestUnit).to.be.a(\"string\");\r",
+                  "        pm.expect(morbidity.morbidityMarkerMinVal).to.be.a(\"number\");\r",
+                  "        pm.expect(morbidity.morbidityMarkerMaxVal).to.be.a(\"number\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "    console.log(\"Total Number of morbidities:\", response.length);\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "    console.log(\r",
+                  "        \"ID:\", morbidity.morbidityId,\r",
+                  "        \"| Test ID:\", morbidity.morbidityTestId,\r",
+                  "        \"| Name:\", morbidity.morbidityTestName,\r",
+                  "        \"| Unit:\", morbidity.morbidityTestUnit,\r",
+                  "        \"| Min:\", morbidity.morbidityMarkerMinVal,\r",
+                  "        \"| Max:\", morbidity.morbidityMarkerMaxVal\r",
+                  "    );\r",
+                  "\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/morbidity",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "morbidity"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAllMorbiditiesByDieticianToken",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");\r",
+                  "const dieticianToken = pm.collectionVariables.get(\"dieticianToken\");\r",
+                  "console.log(\"The request type in MorbidityName is \" + requestType);\r",
+                  "console.log(\"Dietician Token:\",dieticianToken);\r",
+                  "\r",
+                  "if (requestType!=\"getAllMorbiditiesByDieticianToken\") {\r",
+                  "    console.log(\"Skipping Morbidity request - getAllMorbiditiesByDieticianToken\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  "\r",
+                  "else if (!dieticianToken) {\r",
+                  "    console.log(\"Skipping as dieticianToken is missing\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "console.log(response);\r",
+                  "pm.test(\"Get All Morbidity request is successful\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Morbidity has expected Response body\", function () {\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityId\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityTestId\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityTestName\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityTestUnit\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityMarkerMinVal\");\r",
+                  "        pm.expect(morbidity).to.have.property(\"morbidityMarkerMaxVal\");\r",
+                  "    });\r",
+                  "});   \r",
+                  "\r",
+                  "pm.test(\"Morbidity response matches expected schema\", function () {\r",
+                  "    pm.expect(response).to.be.an(\"array\");\r",
+                  "\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "        pm.expect(morbidity).to.be.an(\"object\");\r",
+                  "\r",
+                  "        pm.expect(morbidity.morbidityId).to.be.a(\"number\");\r",
+                  "        pm.expect(morbidity.morbidityTestId).to.be.a(\"string\");\r",
+                  "        pm.expect(morbidity.morbidityTestName).to.be.a(\"string\");\r",
+                  "        pm.expect(morbidity.morbidityTestUnit).to.be.a(\"string\");\r",
+                  "        pm.expect(morbidity.morbidityMarkerMinVal).to.be.a(\"number\");\r",
+                  "        pm.expect(morbidity.morbidityMarkerMaxVal).to.be.a(\"number\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "    console.log(\"Total Number of morbidities:\", response.length);\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "    console.log(\r",
+                  "        \"ID:\", morbidity.morbidityId,\r",
+                  "        \"| Test ID:\", morbidity.morbidityTestId,\r",
+                  "        \"| Name:\", morbidity.morbidityTestName,\r",
+                  "        \"| Unit:\", morbidity.morbidityTestUnit,\r",
+                  "        \"| Min:\", morbidity.morbidityMarkerMinVal,\r",
+                  "        \"| Max:\", morbidity.morbidityMarkerMaxVal\r",
+                  "    );\r",
+                  "\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{dieticianToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/morbidity",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "morbidity"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAllMorbiditiesByInvalidToken",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");\r",
+                  "console.log(\"The request type is \" + requestType);\r",
+                  "\r",
+                  "if (requestType != \"getAllMorbiditiesByInvalidToken\") {\r",
+                  "    console.log(\"Skipping Morbidity request - GetAllMorbiditiesByInvalidToken\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "} else {\r",
+                  "    // Creating an invalid token for testing purpose.Upsert will update the Authorization only for this request.\r",
+                  "    // This will not disturb environment/ collection variables\r",
+                  "    const invalidToken = \"junkies\";\r",
+                  "    pm.request.headers.upsert({\r",
+                  "        key: \"Authorization\",\r",
+                  "        value: \"Bearer \" + invalidToken\r",
+                  "    });\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Get All Morbidity request failure due to Invalid Auth Token\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(401);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/morbidity",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "morbidity"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetMorbidityByTestNameWithAdminToken",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");\r",
+                  "const admintoken = pm.environment.get(\"admin_token\");\r",
+                  "const morbidityTestName = pm.iterationData.get(\"morbidityTestName\");\r",
+                  "\r",
+                  "console.log(\"The request type in MorbidityName is:\", requestType);\r",
+                  "console.log(\"AdminToken:\", admintoken);\r",
+                  "console.log(\"Morbidity test name:\", morbidityTestName);\r",
+                  "\r",
+                  "if (requestType != \"getMorbidityByTestNameWithAdminToken\") {\r",
+                  "    console.log(\"Skipping Morbidity request - getMorbidityByTestNameWithAdminToken\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  "else if (!admintoken) {\r",
+                  "    console.log(\"Skipping as admin_token is missing\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  "else if (!morbidityTestName) {\r",
+                  "    console.log(\"Skipping as morbidityTestName is missing\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  "else {\r",
+                  "    pm.variables.set(\"currentMorbidityName\", morbidityTestName);\r",
+                  "    console.log(\"currentMorbidityName set to:\",pm.variables.get(\"currentMorbidityName\"));\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseStatusCode = pm.response.code;\r",
+                  "\r",
+                  "if (responseStatusCode === 200)\r",
+                  "{\r",
+                  "    const response = pm.response.json();\r",
+                  "    console.log(response);\r",
+                  "    pm.test(\"Get Morbidity By Test Name request is successful with Admin Token\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "    });\r",
+                  "\r",
+                  "    console.log(\"Total number of morbidities:\", response.length);\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "    console.log(\r",
+                  "        \"ID:\", morbidity.morbidityId,\r",
+                  "        \"| Test ID:\", morbidity.morbidityTestId,\r",
+                  "        \"| Name:\", morbidity.morbidityTestName,\r",
+                  "        \"| Unit:\", morbidity.morbidityTestUnit,\r",
+                  "        \"| Min:\", morbidity.morbidityMarkerMinVal,\r",
+                  "        \"| Max:\", morbidity.morbidityMarkerMaxVal\r",
+                  "    );\r",
+                  "});\r",
+                  "}else if (responseStatusCode === 404) \r",
+                  "{\r",
+                  "    const response = pm.response.json();\r",
+                  "    pm.test(\"Get Morbidity By Invalid Test Name returns 404\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(404);\r",
+                  "        \r",
+                  "    const invalidMorbidityTestName = pm.iterationData.get(\"morbidityTestName\");\r",
+                  "    console.log(\"Error Code:\", response.errorCode);\r",
+                  "    console.log(\"Error Message:\", response.errorMessage);\r",
+                  "    pm.expect(response.errorCode).to.eql(\"NOT_FOUND\");\r",
+                  "    pm.expect(response.errorMessage).to.eql(\"Morbidity not found with MorbidityTestName : \" + invalidMorbidityTestName);\r",
+                  " });   \r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/morbidity/{{currentMorbidityName}}",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "morbidity",
+                "{{currentMorbidityName}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetMorbidityByTestNameWithDieticianToken",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");\r",
+                  "const dieticianToken = pm.collectionVariables.get(\"dieticianToken\");\r",
+                  "const morbidityTestName = pm.iterationData.get(\"morbidityTestName\");\r",
+                  "\r",
+                  "console.log(\"The request type in MorbidityName is \" + requestType);\r",
+                  "console.log(\"Dietician Token:\",dieticianToken);\r",
+                  "console.log(\"Morbidity test name:\", morbidityTestName);\r",
+                  "\r",
+                  "if (requestType!=\"getMorbidityByTestNameWithDieticianToken\") {\r",
+                  "    console.log(\"Skipping Morbidity request - getMorbidityByTestNameWithDieticianToken\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  "else if (!dieticianToken) {\r",
+                  "    console.log(\"Skipping as Dietician Token is missing\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "} \r",
+                  "else if (!morbidityTestName) {\r",
+                  "    console.log(\"Skipping as morbidityTestName is missing\");\r",
+                  "    pm.execution.skipRequest();\r",
+                  "}\r",
+                  "else {\r",
+                  "    pm.variables.set(\"currentMorbidityName\", morbidityTestName);\r",
+                  "    console.log(\"currentMorbidityName set to:\",pm.variables.get(\"currentMorbidityName\"));\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseStatusCode = pm.response.code;\r",
+                  "\r",
+                  "if (responseStatusCode === 200)\r",
+                  "{\r",
+                  "    const response = pm.response.json();\r",
+                  "    console.log(response);\r",
+                  "    pm.test(\"Get Morbidity By Test Name request is successful with Dietician Token\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "    });\r",
+                  "\r",
+                  "    console.log(\"Total number of morbidities:\", response.length);\r",
+                  "    response.forEach((morbidity) => {\r",
+                  "    console.log(\r",
+                  "        \"ID:\", morbidity.morbidityId,\r",
+                  "        \"| Test ID:\", morbidity.morbidityTestId,\r",
+                  "        \"| Name:\", morbidity.morbidityTestName,\r",
+                  "        \"| Unit:\", morbidity.morbidityTestUnit,\r",
+                  "        \"| Min:\", morbidity.morbidityMarkerMinVal,\r",
+                  "        \"| Max:\", morbidity.morbidityMarkerMaxVal\r",
+                  "    );\r",
+                  "});\r",
+                  "}else if (responseStatusCode === 404) \r",
+                  "{\r",
+                  "    const response = pm.response.json();\r",
+                  "    pm.test(\"Get Morbidity By Invalid Test Name returns 404\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(404);\r",
+                  "        \r",
+                  "    const invalidMorbidityTestName = pm.iterationData.get(\"morbidityTestName\");\r",
+                  "    console.log(\"Error Code:\", response.errorCode);\r",
+                  "    console.log(\"Error Message:\", response.errorMessage);\r",
+                  "    pm.expect(response.errorCode).to.eql(\"NOT_FOUND\");\r",
+                  "    pm.expect(response.errorMessage).to.eql(\"Morbidity not found with MorbidityTestName : \" + invalidMorbidityTestName);\r",
+                  " });   \r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{dieticianToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/morbidity/{{currentMorbidityName}}",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "morbidity",
+                "{{currentMorbidityName}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "CleanUp",
