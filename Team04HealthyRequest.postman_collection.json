@@ -18,6 +18,7 @@
               "script": {
                 "exec": [
                   "const requestType = pm.iterationData.get(\"requestType\");",
+                  "const requestType = pm.iterationData.get(\"requestType\");",
                   "console.log(\"Running scenario:\", pm.iterationData.get(\"scenario\"));",
                   "console.log(\"The request type in POST Admin Login is \"+ requestType)",
                   "if (requestType!=\"createAdmin\"){",
@@ -942,6 +943,76 @@
                 "dietician",
                 "dietician",
                 "{{dieticianID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateDieticianWithoutToken",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");",
+                  "console.log(\"The request type is \" + requestType);",
+                  "console.log(\"The request type is \" + requestType);",
+                  "console.log(\"The request type is \" + requestType);",
+                  "console.log(\"test\")",
+                  "console.log(\"test\")",
+                  "if (requestType != \"CreateDieticianWithoutToken\") {",
+                  "    console.log(\"Skipping Create Dietician request - CreateDieticianWithoutToken\");",
+                  "    pm.execution.skipRequest();",
+                  "} else {",
+                  "    // Creating an invalid token for testing purpose.Upsert will update the Authorization only for this request.",
+                  "    // This will not disturb environment/ collection variables",
+                  "    const invalidToken = \"junkies\";",
+                  "    pm.request.headers.upsert({",
+                  "        key: \"Authorization\",",
+                  "        value: \"Bearer \" + invalidToken",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Create Dietician failure  due to No Auth Token\", function () {",
+                  "    pm.expect(pm.response.code).to.eql(401);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Firstname\": \"{{Firstname}}\",\n  \"Lastname\": \"{{Lastname}}\",\n  \"ContactNumber\": \"{{ContactNumber}}\",\n  \"DateOfBirth\": \"{{DateOfBirth}}\",\n  \"Email\": \"{{Email}}\",\n  \"HospitalName\": \"{{HospitalName}}\",\n  \"HospitalStreet\": \"{{HospitalStreet}}\",\n  \"HospitalCity\": \"{{HospitalCity}}\",\n  \"HospitalPincode\": \"{{HospitalPincode}}\",\n  \"Education\": \"{{Education}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/dietician",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "dietician"
               ]
             }
           },
