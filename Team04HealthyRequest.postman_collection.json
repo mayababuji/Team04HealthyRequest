@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "ffd6f538-633c-4798-86da-6b6cd0d7bdb1",
+    "_postman_id": "9e3131e9-46ad-41ed-a1a6-ea55066fafd5",
     "name": "Team04HealthyRequest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "45517037"
@@ -941,6 +941,73 @@
                 "dietician",
                 "dietician",
                 "{{dieticianID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateDieticianWithoutToken",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const requestType = pm.iterationData.get(\"requestType\");",
+                  "console.log(\"The request type is \" + requestType);",
+                  "",
+                  "if (requestType != \"CreateDieticianWithoutToken\") {",
+                  "    console.log(\"Skipping Create Dietician request - CreateDieticianWithoutToken\");",
+                  "    pm.execution.skipRequest();",
+                  "} else {",
+                  "    // Creating an invalid token for testing purpose.Upsert will update the Authorization only for this request.",
+                  "    // This will not disturb environment/ collection variables",
+                  "    const invalidToken = \"junkies\";",
+                  "    pm.request.headers.upsert({",
+                  "        key: \"Authorization\",",
+                  "        value: \"Bearer \" + invalidToken",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Create Dietician failure  due to No Auth Token\", function () {",
+                  "    pm.expect(pm.response.code).to.eql(401);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Firstname\": \"{{Firstname}}\",\n  \"Lastname\": \"{{Lastname}}\",\n  \"ContactNumber\": \"{{ContactNumber}}\",\n  \"DateOfBirth\": \"{{DateOfBirth}}\",\n  \"Email\": \"{{Email}}\",\n  \"HospitalName\": \"{{HospitalName}}\",\n  \"HospitalStreet\": \"{{HospitalStreet}}\",\n  \"HospitalCity\": \"{{HospitalCity}}\",\n  \"HospitalPincode\": \"{{HospitalPincode}}\",\n  \"Education\": \"{{Education}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{dieticianbaseBaseUrl}}/dietician/dietician",
+              "host": [
+                "{{dieticianbaseBaseUrl}}"
+              ],
+              "path": [
+                "dietician",
+                "dietician"
               ]
             }
           },
