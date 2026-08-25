@@ -17,6 +17,7 @@
               "script": {
                 "exec": [
                   "const requestType = pm.iterationData.get(\"requestType\");",
+                  "const requestType = pm.iterationData.get(\"requestType\");",
                   "console.log(\"Running scenario:\", pm.iterationData.get(\"scenario\"));",
                   "console.log(\"The request type in POST Admin Login is \"+ requestType)",
                   "if (requestType!=\"createAdmin\"){",
@@ -955,7 +956,10 @@
                 "exec": [
                   "const requestType = pm.iterationData.get(\"requestType\");",
                   "console.log(\"The request type is \" + requestType);",
-                  "",
+                  "console.log(\"The request type is \" + requestType);",
+                  "console.log(\"The request type is \" + requestType);",
+                  "console.log(\"test\")",
+                  "console.log(\"test\")",
                   "if (requestType != \"CreateDieticianWithoutToken\") {",
                   "    console.log(\"Skipping Create Dietician request - CreateDieticianWithoutToken\");",
                   "    pm.execution.skipRequest();",
