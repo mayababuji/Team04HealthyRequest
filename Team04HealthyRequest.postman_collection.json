@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "ffd6f538-633c-4798-86da-6b6cd0d7bdb1",
+    "_postman_id": "7383fbd1-9af8-43b2-9803-f45ccb5bcfe0",
     "name": "Team04HealthyRequest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "45517037"
+    "_exporter_id": "57080143",
+    "_collection_link": "https://go.postman.co/collection/57080143-7383fbd1-9af8-43b2-9803-f45ccb5bcfe0?source=collection_link"
   },
   "item": [
     {
@@ -1551,10 +1552,10 @@
                   "type": "file",
                   "uuid": "8900ad7b-b8ba-4c0a-9178-c33870f2b802",
                   "src": [
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/HyperThyroid_Report_final.pdf",
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/Hypo Thyroid-Report.pdf",
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/CBC-sample 1.pdf",
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/Diabetic and Hemogram Test_Thyrocare lab.pdf"
+                    "C:\\Users\\indhu\\Desktop\\Indhuja Personal\\Indhuja Work\\API\\Team04HealthyRequest\\files\\HyperThyroid_Report_final.pdf",
+                    "C:\\Users\\indhu\\Desktop\\Indhuja Personal\\Indhuja Work\\API\\Team04HealthyRequest\\files\\Hypo Thyroid-Report.pdf",
+                    "C:\\Users\\indhu\\Desktop\\Indhuja Personal\\Indhuja Work\\API\\Team04HealthyRequest\\files\\CBC-sample 1.pdf",
+                    "C:\\Users\\indhu\\Desktop\\Indhuja Personal\\Indhuja Work\\API\\Team04HealthyRequest\\files\\Diabetic and Hemogram Test_Thyrocare lab.pdf"
                   ]
                 }
               ]
