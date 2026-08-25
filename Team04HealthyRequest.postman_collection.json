@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "9e3131e9-46ad-41ed-a1a6-ea55066fafd5",
+    "_postman_id": "a11f2a0a-24a9-42f9-87be-69e32ad0a025",
     "name": "Team04HealthyRequest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "45517037"
+    "_exporter_id": "57404240",
+    "_collection_link": "https://go.postman.co/collection/57404240-a11f2a0a-24a9-42f9-87be-69e32ad0a025?source=collection_link"
   },
   "item": [
     {
@@ -575,9 +576,9 @@
               }
             },
             "url": {
-              "raw": "{{dieticianbaseBaseUrl}}/dietician/dietician/{{dieticianID}}",
+              "raw": "{{dieticianbaseBaseUrl}}{/dietician/dietician/{{dieticianID}}",
               "host": [
-                "{{dieticianbaseBaseUrl}}"
+                "{{dieticianbaseBaseUrl}}{"
               ],
               "path": [
                 "dietician",
