@@ -1466,10 +1466,10 @@
                   "type": "file",
                   "uuid": "8900ad7b-b8ba-4c0a-9178-c33870f2b802",
                   "src": [
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/HyperThyroid_Report_final.pdf",
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/Hypo Thyroid-Report.pdf",
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/CBC-sample 1.pdf",
-                    "/Users/maya/Documents/Maya Numpy Ninja/Team04APIDieticianHackathonAug2026/Participants Folder/Sample reports/Diabetic and Hemogram Test_Thyrocare lab.pdf"
+                    "files/HyperThyroid_Report_final.pdf",
+                    "files/Hypo Thyroid-Report.pdf",
+                    "files/CBC-sample 1.pdf",
+                    "files/Diabetic and Hemogram Test_Thyrocare lab.pdf"
                   ]
                 }
               ]
